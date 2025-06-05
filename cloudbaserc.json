@@ -1,0 +1,261 @@
+{
+  "version": "2.0",
+  "envId": "cloudbase-7gz7y7qd7af829dc",
+  "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "functionRoot": "./cloudfunctions",
+  "functions": [
+    {
+      "name": "login",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "updateUserProfile",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "initDatabase",
+      "timeout": 60,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "getUserProfile",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "submitActivity",
+      "timeout": 10,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "getProducts",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "exchangeProduct",
+      "timeout": 10,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "getKnowledgeArticles",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "aiChat",
+      "timeout": 20,
+      "runtime": "Nodejs12.16",
+      "memorySize": 256,
+      "handler": "index.main"
+    },
+    {
+      "name": "getHomePageBanners",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "manageHomePageBanners",
+      "timeout": 10,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "reviewActivity",
+      "timeout": 10,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "getRedemptions",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "manageRedemptions",
+      "timeout": 10,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "manageActivityTypes",
+      "timeout": 10,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    },
+    {
+      "name": "getActivityTypes",
+      "timeout": 5,
+      "runtime": "Nodejs12.16",
+      "memorySize": 128,
+      "handler": "index.main"
+    }
+  ],
+  "framework": {
+    "name": "xiaotanjianghu",
+    "plugins": {
+      "server": {
+        "use": "@cloudbase/framework-plugin-function",
+        "inputs": {
+          "functionRootPath": "./cloudfunctions",
+          "functions": [
+            {
+              "name": "login",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "updateUserProfile",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "initDatabase",
+              "config": {
+                "timeout": 60,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "getUserProfile",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "submitActivity",
+              "config": {
+                "timeout": 10,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "getProducts",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "exchangeProduct",
+              "config": {
+                "timeout": 10,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "getKnowledgeArticles",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "aiChat",
+              "config": {
+                "timeout": 20,
+                "runtime": "Nodejs12.16",
+                "memorySize": 256
+              }
+            },
+            {
+              "name": "getHomePageBanners",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "manageHomePageBanners",
+              "config": {
+                "timeout": 10,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "reviewActivity",
+              "config": {
+                "timeout": 10,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "getRedemptions",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "manageRedemptions",
+              "config": {
+                "timeout": 10,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "manageActivityTypes",
+              "config": {
+                "timeout": 10,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            },
+            {
+              "name": "getActivityTypes",
+              "config": {
+                "timeout": 5,
+                "runtime": "Nodejs12.16",
+                "memorySize": 128
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,22 @@
+{
+  "name": "xiaotanjianghu",
+  "version": "1.0.0",
+  "description": "孝碳江湖小程序",
+  "main": "app.js",
+  "scripts": {
+    "upload-images": "node upload-images.js",
+    "deploy": "node deploy.js",
+    "check-size": "node check-size.js"
+  },
+  "dependencies": {
+    "@cloudbase/manager-node": "^4.2.0",
+    "wx-server-sdk": "^2.6.3"
+  },
+  "keywords": [
+    "xiaotanjianghu",
+    "carbon",
+    "miniprogram"
+  ],
+  "author": "",
+  "license": "ISC"
+} 
