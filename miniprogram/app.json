@@ -1,0 +1,89 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/index/index",
+    "pages/activities/activities",
+    "pages/activities/submit/submit",
+    "pages/activities/records/records",
+    "pages/mall/mall",
+    "pages/product/detail/detail",
+    "pages/redemption/redemption",
+    "pages/me/me",
+    "pages/me/profile/profile",
+    "pages/me/points/points",
+    "pages/me/records/records",
+    "pages/me/redemption/redemption",
+    "pages/login/login",
+    "pages/knowledge/knowledge",
+    "pages/home/index",
+    "pages/activities/submit/index",
+    "pages/activities/records/index",
+    "pages/mall/index",
+    "pages/me/index",
+    "pages/me/profile/index",
+    "pages/me/points/index",
+    "pages/me/records/index",
+    "pages/me/redemption/index",
+    "pages/product/detail/index",
+    "pages/redemption/index",
+    "pages/knowledge/index",
+    "pages/login/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4ade80",
+    "navigationBarTitleText": "孝碳江湖",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f3f4f6"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#4ade80",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "icons/home.png",
+        "selectedIconPath": "icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/activities/activities",
+        "text": "低碳生活",
+        "iconPath": "icons/leaf.png",
+        "selectedIconPath": "icons/leaf-active.png"
+      },
+      {
+        "pagePath": "pages/mall/mall",
+        "text": "积分商城",
+        "iconPath": "icons/shop.png",
+        "selectedIconPath": "icons/shop-active.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "icons/user.png",
+        "selectedIconPath": "icons/user-active.png"
+      }
+    ]
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于记录低碳活动地点"
+    }
+  },
+  "requiredBackgroundModes": [],
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {
+    "ui-card": "/components/ui/card/card",
+    "ui-button": "/components/ui/button/button",
+    "placeholder-image": "/components/ui/placeholder-image/placeholder-image"
+  }
+}
