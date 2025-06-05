@@ -1,0 +1,26 @@
+<!-- 通用按钮组件 -->
+<button 
+  class="ui-button ui-button-{{type}} ui-button-{{size}} {{className}}" 
+  style="{{customStyle}}"
+  disabled="{{disabled}}"
+  loading="{{loading}}"
+  open-type="{{openType}}"
+  bindtap="onButtonTap"
+>
+  <!-- 图标 -->
+  <view class="ui-button-icon" wx:if="{{icon}}">
+    <image src="{{icon}}" class="icon-image" wx:if="{{icon.includes('.')}}"></image>
+    <text class="iconfont icon-{{icon}}" wx:else></text>
+  </view>
+  
+  <!-- 按钮文字 -->
+  <view class="ui-button-text">
+    <slot wx:if="{{!text}}"></slot>
+    <text wx:else>{{text}}</text>
+  </view>
+  
+  <!-- 加载图标 -->
+  <view class="ui-button-loading" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+  </view>
+</button> 

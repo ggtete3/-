@@ -1,0 +1,145 @@
+/* 通用按钮组件样式 */
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+}
+
+.ui-button::after {
+  border: none;
+}
+
+/* 按钮尺寸 */
+.ui-button-small {
+  height: 56rpx;
+  padding: 0 24rpx;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+}
+
+.ui-button-medium {
+  height: 72rpx;
+  padding: 0 32rpx;
+  font-size: 28rpx;
+}
+
+.ui-button-large {
+  height: 88rpx;
+  padding: 0 40rpx;
+  font-size: 32rpx;
+  border-radius: 16rpx;
+}
+
+/* 按钮类型 */
+.ui-button-primary {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  color: white;
+}
+
+.ui-button-primary:not(.button-disabled):active {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  transform: scale(0.98);
+}
+
+.ui-button-secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1rpx solid #e5e7eb;
+}
+
+.ui-button-secondary:not(.button-disabled):active {
+  background-color: #e5e7eb;
+  transform: scale(0.98);
+}
+
+.ui-button-outline {
+  background-color: transparent;
+  color: #4ade80;
+  border: 2rpx solid #4ade80;
+}
+
+.ui-button-outline:not(.button-disabled):active {
+  background-color: #4ade80;
+  color: white;
+}
+
+.ui-button-text {
+  background-color: transparent;
+  color: #4ade80;
+  border: none;
+}
+
+.ui-button-text:not(.button-disabled):active {
+  background-color: rgba(74, 222, 128, 0.1);
+}
+
+.ui-button-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.ui-button-danger:not(.button-disabled):active {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+/* 禁用状态 */
+.ui-button.button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 按钮内容 */
+.ui-button-icon {
+  margin-right: 8rpx;
+}
+
+.ui-button-icon .icon-image {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.ui-button-text {
+  flex: 1;
+}
+
+/* 加载状态 */
+.ui-button-loading {
+  margin-right: 8rpx;
+}
+
+.loading-spinner {
+  width: 24rpx;
+  height: 24rpx;
+  border: 2rpx solid transparent;
+  border-top: 2rpx solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 全宽按钮 */
+.ui-button-block {
+  width: 100%;
+  margin: 0;
+}
+
+/* 圆形按钮 */
+.ui-button-circle {
+  border-radius: 50%;
+  width: 72rpx;
+  height: 72rpx;
+  padding: 0;
+} 

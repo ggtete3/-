@@ -1,0 +1,71 @@
+/* 通用卡片组件样式 */
+.ui-card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  transition: all 0.3s ease;
+}
+
+.ui-card:hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.12);
+}
+
+.ui-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 30rpx 0 30rpx;
+}
+
+.ui-card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.ui-card-extra {
+  font-size: 24rpx;
+  color: #4ade80;
+}
+
+.ui-card-body {
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.ui-card-footer {
+  padding: 0 30rpx 30rpx 30rpx;
+  border-top: 1rpx solid #f3f4f6;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+}
+
+/* 卡片变体样式 */
+.ui-card.gradient {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  color: white;
+}
+
+.ui-card.gradient .ui-card-title,
+.ui-card.gradient .ui-card-body {
+  color: white;
+}
+
+.ui-card.bordered {
+  border: 2rpx solid #e5e7eb;
+  box-shadow: none;
+}
+
+.ui-card.shadow-lg {
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.12);
+}
+
+.ui-card.no-padding .ui-card-body {
+  padding: 0;
+} 

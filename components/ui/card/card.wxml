@@ -1,0 +1,18 @@
+<!-- 通用卡片组件 -->
+<view class="ui-card {{className}}" style="{{customStyle}}">
+  <!-- 卡片头部 -->
+  <view class="ui-card-header" wx:if="{{title || extra}}">
+    <view class="ui-card-title" wx:if="{{title}}">{{title}}</view>
+    <view class="ui-card-extra" wx:if="{{extra}}">{{extra}}</view>
+  </view>
+  
+  <!-- 卡片内容 -->
+  <view class="ui-card-body">
+    <slot></slot>
+  </view>
+  
+  <!-- 卡片底部 -->
+  <view class="ui-card-footer" wx:if="{{hasFooter}}">
+    <slot name="footer"></slot>
+  </view>
+</view> 

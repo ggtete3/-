@@ -1,0 +1,32 @@
+<!-- 占位图片组件 -->
+<view class="placeholder-image {{className}}" style="{{customStyle}}">
+  <image 
+    wx:if="{{src && !error}}"
+    src="{{src}}" 
+    mode="{{mode}}"
+    class="real-image"
+    binderror="onImageError"
+    bindload="onImageLoad"
+    lazy-load="{{lazyLoad}}"
+  ></image>
+  
+  <view wx:else class="placeholder-content placeholder-{{type}}">
+    <!-- 图标占位 -->
+    <view class="placeholder-icon" wx:if="{{icon}}">
+      <text class="iconfont icon-{{icon}}"></text>
+    </view>
+    
+    <!-- 文字占位 -->
+    <view class="placeholder-text" wx:if="{{text}}">
+      <text>{{text}}</text>
+    </view>
+    
+    <!-- 默认占位 -->
+    <view class="placeholder-default" wx:else>
+      <view class="placeholder-icon">
+        <text class="iconfont icon-camera"></text>
+      </view>
+      <text class="placeholder-tip">{{defaultText}}</text>
+    </view>
+  </view>
+</view> 
