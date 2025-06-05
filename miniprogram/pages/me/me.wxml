@@ -1,0 +1,268 @@
+<!--pages/me/me.wxml-->
+<view class="container">
+  <!-- 用户信息头部 -->
+  <view class="user-header">
+    <view class="header-bg">
+      <view class="bg-gradient"></view>
+      <view class="header-decoration">
+        <view class="floating-leaf leaf-1"></view>
+        <view class="floating-leaf leaf-2"></view>
+        <view class="floating-leaf leaf-3"></view>
+        <view class="floating-leaf leaf-4"></view>
+      </view>
+    </view>
+    
+    <view class="user-profile">
+      <view class="avatar-section">
+        <view class="avatar-wrapper">
+          <image src="{{userInfo.avatar_url || '/static/images/default-avatar.png'}}" class="user-avatar" />
+          <view class="level-badge">
+            <image src="/static/icons/star.svg" class="level-icon" />
+            <text class="level-text">Lv.{{userInfo.level || 1}}</text>
+          </view>
+          <view class="avatar-glow"></view>
+        </view>
+      </view>
+      
+      <view class="user-details">
+        <text class="user-nickname">{{userInfo.nickname || '微信用户'}}</text>
+        <view class="user-meta">
+          <view class="meta-item">
+            <image src="/static/icons/leaf.svg" class="meta-icon" />
+            <text class="meta-text">低碳达人 · 加入{{formatJoinDate(userInfo.created_at)}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分卡片 -->
+  <view class="points-card">
+    <view class="points-content">
+      <view class="points-header">
+        <image src="/static/icons/leaf.svg" class="points-icon" />
+        <text class="points-title">我的积分</text>
+      </view>
+      <view class="points-main">
+        <text class="points-number">{{userInfo.available_points || 0}}</text>
+        <text class="points-unit">分</text>
+      </view>
+      <view class="points-info">
+        <text class="points-earned">累计获得 {{userInfo.total_points || 0}} 积分</text>
+      </view>
+    </view>
+    <view class="points-bg-icon">
+      <image src="/static/icons/leaf.svg" class="bg-leaf" />
+    </view>
+  </view>
+
+  <!-- 环保数据统计 -->
+  <view class="stats-grid">
+    <view class="stat-card">
+      <view class="stat-icon-wrapper green">
+        <image src="/static/icons/bus.svg" class="stat-icon" />
+      </view>
+      <view class="stat-content">
+        <text class="stat-number">{{userStats.totalActivities || 0}}</text>
+        <text class="stat-label">活动记录</text>
+        <view class="stat-badge" wx:if="{{userStats.pendingActivities > 0}}">
+          <text class="badge-text">{{userStats.pendingActivities}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="stat-card">
+      <view class="stat-icon-wrapper blue">
+        <image src="/static/icons/gift.svg" class="stat-icon" />
+      </view>
+      <view class="stat-content">
+        <text class="stat-number">{{userStats.totalRedemptions || 0}}</text>
+        <text class="stat-label">兑换次数</text>
+      </view>
+    </view>
+    
+    <view class="stat-card">
+      <view class="stat-icon-wrapper orange">
+        <image src="/static/icons/recycle.svg" class="stat-icon" />
+      </view>
+      <view class="stat-content">
+        <text class="stat-number">{{carbonReductionText}}</text>
+        <text class="stat-label">碳减排量</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷操作 -->
+  <view class="quick-actions">
+    <view class="action-title">
+      <image src="/static/icons/star.svg" class="title-icon" />
+      <text class="title-text">快捷操作</text>
+    </view>
+    
+    <view class="action-grid">
+      <view class="action-item" bindtap="goToSubmitActivity" data-type="bus">
+        <view class="action-icon-wrapper green">
+          <image src="/static/icons/bus.svg" class="action-icon" />
+        </view>
+        <text class="action-label">公交出行</text>
+      </view>
+      
+      <view class="action-item" bindtap="goToSubmitActivity" data-type="bike">
+        <view class="action-icon-wrapper blue">
+          <image src="/static/icons/bike.svg" class="action-icon" />
+        </view>
+        <text class="action-label">骑行出行</text>
+      </view>
+      
+      <view class="action-item" bindtap="goToSubmitActivity" data-type="walking">
+        <view class="action-icon-wrapper orange">
+          <image src="/static/icons/walking.svg" class="action-icon" />
+        </view>
+        <text class="action-label">步行出行</text>
+      </view>
+      
+      <view class="action-item" bindtap="goToSubmitActivity" data-type="recycle">
+        <view class="action-icon-wrapper purple">
+          <image src="/static/icons/recycle.svg" class="action-icon" />
+        </view>
+        <text class="action-label">垃圾分类</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <!-- 我的记录 -->
+    <view class="menu-group">
+      <view class="group-header">
+        <image src="/static/icons/achievements.svg" class="group-icon" />
+        <text class="group-title">我的记录</text>
+      </view>
+      
+      <view class="menu-list">
+        <view class="menu-item" bindtap="goToActivityRecords">
+          <view class="item-left">
+            <view class="item-icon-wrapper green">
+              <image src="/static/icons/bus.svg" class="item-icon" />
+            </view>
+            <view class="item-info">
+              <text class="item-title">活动记录</text>
+              <text class="item-subtitle">查看所有环保活动记录</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <view wx:if="{{userStats.pendingActivities > 0}}" class="notification-badge">
+              <text class="badge-number">{{userStats.pendingActivities}}</text>
+            </view>
+            <image src="/static/icons/arrow-right.png" class="arrow-icon" />
+          </view>
+        </view>
+        
+        <view class="menu-item" bindtap="goToRedemptionRecords">
+          <view class="item-left">
+            <view class="item-icon-wrapper blue">
+              <image src="/static/icons/gift.svg" class="item-icon" />
+            </view>
+            <view class="item-info">
+              <text class="item-title">兑换记录</text>
+              <text class="item-subtitle">查看商品兑换历史</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <image src="/static/icons/arrow-right.png" class="arrow-icon" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成就与设置 -->
+    <view class="menu-group">
+      <view class="group-header">
+        <image src="/static/icons/settings.svg" class="group-icon" />
+        <text class="group-title">更多功能</text>
+      </view>
+      
+      <view class="menu-list">
+        <view class="menu-item" bindtap="showAllAchievements">
+          <view class="item-left">
+            <view class="item-icon-wrapper purple">
+              <image src="/static/icons/achievements.svg" class="item-icon" />
+            </view>
+            <view class="item-info">
+              <text class="item-title">我的成就</text>
+              <text class="item-subtitle">查看获得的环保成就</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <image src="/static/icons/arrow-right.png" class="arrow-icon" />
+          </view>
+        </view>
+        
+        <view class="menu-item" bindtap="showRules">
+          <view class="item-left">
+            <view class="item-icon-wrapper orange">
+              <image src="/static/icons/star.svg" class="item-icon" />
+            </view>
+            <view class="item-info">
+              <text class="item-title">积分规则</text>
+              <text class="item-subtitle">了解积分获取规则</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <image src="/static/icons/arrow-right.png" class="arrow-icon" />
+          </view>
+        </view>
+        
+        <view class="menu-item" bindtap="contactService">
+          <view class="item-left">
+            <view class="item-icon-wrapper blue">
+              <image src="/static/icons/settings.svg" class="item-icon" />
+            </view>
+            <view class="item-info">
+              <text class="item-title">联系客服</text>
+              <text class="item-subtitle">获取帮助与支持</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <image src="/static/icons/arrow-right.png" class="arrow-icon" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 成就展示（简化版） -->
+  <view class="achievements-section" wx:if="{{achievements.length > 0}}">
+    <view class="achievements-header">
+      <image src="/static/icons/achievements.svg" class="achievements-icon" />
+      <text class="achievements-title">最新成就</text>
+      <text class="more-link" bindtap="showAllAchievements">查看全部</text>
+    </view>
+    
+    <view class="achievements-list">
+      <view 
+        wx:for="{{achievements}}" 
+        wx:for-index="index"
+        wx:key="id"
+        wx:if="{{index < 3}}"
+        class="achievement-item {{item.unlocked ? 'unlocked' : 'locked'}}"
+        bindtap="showAchievementDetail"
+        data-achievement="{{item}}"
+      >
+        <view class="achievement-icon-bg {{item.unlocked ? 'unlocked' : ''}}">
+          <image src="{{item.icon}}" class="achievement-icon" />
+        </view>
+        <view class="achievement-info">
+          <text class="achievement-name">{{item.name}}</text>
+          <text class="achievement-progress" wx:if="{{!item.unlocked}}">
+            {{item.progress}}/{{item.target}}
+          </text>
+          <text class="achievement-desc" wx:if="{{item.unlocked}}">已解锁</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-area-bottom"></view>
+</view>

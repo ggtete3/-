@@ -1,0 +1,112 @@
+<!--pages/me/redemption/redemption.wxml-->
+<view class="container">
+  <!-- 顶部筛选 -->
+  <view class="filter-section">
+    <view class="filter-tabs">
+      <view 
+        wx:for="{{filterTabs}}" 
+        wx:key="id"
+        class="filter-tab {{currentFilter === item.id ? 'active' : ''}}"
+        bindtap="switchFilter"
+        data-filter="{{item.id}}"
+      >
+        <text class="tab-text">{{item.title}}</text>
+        <view wx:if="{{item.count > 0}}" class="tab-badge">{{item.count}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计概览 -->
+  <view class="stats-overview">
+    <view class="overview-card">
+      <view class="stat-item">
+        <view class="stat-icon-wrapper">
+          <image src="/static/icons/gift.svg" class="stat-icon" />
+        </view>
+        <view class="stat-content">
+          <text class="stat-number">{{totalRedemptions}}</text>
+          <text class="stat-label">总兑换数</text>
+        </view>
+      </view>
+      
+      <view class="stat-divider"></view>
+      
+      <view class="stat-item">
+        <view class="stat-icon-wrapper">
+          <image src="/static/icons/star.svg" class="stat-icon" />
+        </view>
+        <view class="stat-content">
+          <text class="stat-number">{{totalPointsUsed}}</text>
+          <text class="stat-label">消费积分</text>
+        </view>
+      </view>
+      
+      <view class="stat-divider"></view>
+      
+      <view class="stat-item">
+        <view class="stat-icon-wrapper">
+          <image src="/static/icons/recycle.svg" class="stat-icon" />
+        </view>
+        <view class="stat-content">
+          <text class="stat-number">{{thisMonthRedemptions}}</text>
+          <text class="stat-label">本月兑换</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 兑换记录列表 -->
+  <view class="records-section">
+    <view wx:if="{{filteredRecords.length > 0}}" class="records-list">
+      <view 
+        wx:for="{{filteredRecords}}" 
+        wx:key="id"
+        class="record-item"
+        bindtap="showRecordDetail"
+        data-record="{{item}}"
+      >
+        <view class="record-left">
+          <view class="product-image-wrapper">
+            <image src="{{item.product_image}}" class="product-image" mode="aspectFill" />
+          </view>
+          <view class="record-content">
+            <text class="product-name">{{item.product_name}}</text>
+            <text class="order-info">订单号：{{item.order_no}}</text>
+            <text class="redeem-time">兑换时间：{{item.redeem_time}}</text>
+          </view>
+        </view>
+        
+        <view class="record-right">
+          <view class="status-section">
+            <view class="status-badge {{item.status}}">
+              <text class="status-text">{{item.statusText}}</text>
+            </view>
+            <view class="delivery-status {{item.delivery_status}}" wx:if="{{item.delivery_status}}">
+              <text class="delivery-text">{{item.deliveryStatusText}}</text>
+            </view>
+          </view>
+          <view class="points-used">
+            <text class="points-text">-{{item.points_used}}积分</text>
+          </view>
+          <image src="/static/icons/arrow-right.png" class="arrow-icon" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{filteredRecords.length === 0}}" class="empty-state">
+      <image src="/static/images/empty-redemption.png" class="empty-image" />
+      <text class="empty-title">{{emptyStateText}}</text>
+      <text class="empty-desc">快去商城兑换心仪的商品吧！</text>
+      <button class="goto-mall-btn" bindtap="goToMall">前往商城</button>
+    </view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view wx:if="{{hasMore && filteredRecords.length > 0}}" class="load-more">
+    <text class="load-text" bindtap="loadMore">加载更多</text>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-area-bottom"></view>
+</view> 

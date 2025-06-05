@@ -1,0 +1,121 @@
+<!--pages/activities/submit/submit.wxml-->
+<view class="container">
+  <!-- 顶部提示 -->
+  <view class="header">
+    <text class="title">提交{{activityType === 'transport' ? '绿色出行' : activityType === 'energy' ? '节能减排' : '环保活动'}}</text>
+    <text class="subtitle">完成活动可获得碳积分奖励</text>
+  </view>
+
+  <!-- 表单区域 -->
+  <view class="form-section">
+    <!-- 活动类型选择 -->
+    <view class="form-item">
+      <text class="label">活动类型</text>
+      <picker 
+        bindchange="onTypeChange" 
+        value="{{typeIndex}}" 
+        range="{{activityTypes}}" 
+        range-key="name"
+      >
+        <view class="picker">
+          <text>{{activityTypes[typeIndex].name}}</text>
+          <text class="iconfont icon-arrow-right"></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 活动时长 -->
+    <view class="form-item">
+      <text class="label">活动时长</text>
+      <picker 
+        mode="time" 
+        value="{{duration}}" 
+        bindchange="onDurationChange"
+      >
+        <view class="picker">
+          <text>{{duration}} 小时</text>
+          <text class="iconfont icon-arrow-right"></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 活动描述 -->
+    <view class="form-item">
+      <text class="label">活动描述</text>
+      <textarea 
+        class="description" 
+        placeholder="请简要描述您的活动内容..." 
+        value="{{description}}"
+        bindinput="onDescriptionInput"
+        maxlength="200"
+      ></textarea>
+      <text class="word-count">{{description.length}}/200</text>
+    </view>
+
+    <!-- 图片上传 -->
+    <view class="form-item">
+      <text class="label">活动照片</text>
+      <view class="image-uploader">
+        <view 
+          class="image-item" 
+          wx:for="{{images}}" 
+          wx:key="*this"
+        >
+          <image 
+            src="{{item}}" 
+            mode="aspectFill"
+            bindtap="previewImage"
+            data-url="{{item}}"
+          />
+          <text 
+            class="delete-btn iconfont icon-close"
+            catchtap="deleteImage"
+            data-index="{{index}}"
+          ></text>
+        </view>
+        <view 
+          class="upload-btn"
+          bindtap="chooseImage"
+          wx:if="{{images.length < 3}}"
+        >
+          <text class="iconfont icon-camera"></text>
+          <text class="text">上传照片</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 地理位置 -->
+    <view class="form-item">
+      <text class="label">活动地点 (可选)</text>
+      <view class="location-section">
+        <view class="location-display {{locationName || locationAddress ? 'active' : ''}}" bindtap="onGetLocationTap">
+          <text class="iconfont {{locationName || locationAddress ? 'icon-location-fill' : 'icon-location'}}"></text>
+          <text>{{ locationName || locationAddress || locationInfo }}</text>
+        </view>
+        <button class="location-btn" bindtap="onGetLocationTap" size="mini">
+          <text class="iconfont icon-refresh"></text> {{ locationName || locationAddress ? '重新选择' : '选择位置' }}
+        </button>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 预计获得积分 -->
+  <view class="points-preview">
+    <text class="label">预计获得</text>
+    <text class="points">{{expectedPoints}}g</text>
+    <text class="label">碳积分</text>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button 
+    class="submit-btn {{canSubmit ? '' : 'disabled'}}"
+    bindtap="submitActivity"
+    disabled="{{!canSubmit}}"
+  >
+    提交活动
+  </button>
+</view>
+
+<!-- 自定义导航栏背景 -->
+<view class="custom-navbar-bg"></view>

@@ -1,0 +1,75 @@
+<!--pages/dev-tools/index.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">开发工具</text>
+  </view>
+  
+  <view class="content">
+    <view class="card">
+      <view class="card-title">云开发环境</view>
+      <view class="card-content">
+        <text class="env-id">环境ID: {{cloudEnvId}}</text>
+      </view>
+    </view>
+    
+    <view class="card">
+      <view class="card-title">测试模式</view>
+      <view class="card-content">
+        <view class="switch-container">
+          <text>测试模式：</text>
+          <switch checked="{{isTestMode}}" bindchange="toggleTestMode" />
+        </view>
+        <text class="tips">开启后使用测试数据，无需真实登录</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">云函数调用</view>
+      <view class="card-content">
+        <view class="function-selector">
+          <view class="section-title">选择云函数：</view>
+          <view class="function-buttons">
+            <block wx:for="{{availableFunctions}}" wx:key="*this">
+              <view 
+                class="function-button {{functionName === item ? 'active' : ''}}" 
+                bindtap="selectFunction"
+                data-name="{{item}}"
+              >
+                {{item}}
+              </view>
+            </block>
+          </view>
+        </view>
+        
+        <view class="input-container">
+          <view class="section-title">函数名称：</view>
+          <input class="input" value="{{functionName}}" bindinput="inputFunctionName" placeholder="输入云函数名称" />
+        </view>
+        
+        <view class="input-container">
+          <view class="section-title">函数参数(JSON)：</view>
+          <textarea class="textarea" value="{{functionParams}}" bindinput="inputFunctionParams" placeholder="输入JSON格式参数" />
+        </view>
+        
+        <button class="action-button" bindtap="callFunction" loading="{{loading}}">调用云函数</button>
+        
+        <view class="input-container" wx:if="{{result}}">
+          <view class="section-title">结果：</view>
+          <view class="result-box">{{result}}</view>
+        </view>
+        
+        <view class="input-container" wx:if="{{error}}">
+          <view class="section-title">错误：</view>
+          <view class="error-box">{{error}}</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="card">
+      <view class="card-title">数据库操作</view>
+      <view class="card-content">
+        <button class="action-button" bindtap="createUsersCollection" loading="{{loading}}">创建 users 集合</button>
+      </view>
+    </view>
+  </view>
+</view> 

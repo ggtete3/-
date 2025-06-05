@@ -1,0 +1,52 @@
+<view class="container">
+  <block wx:if="{{!loading && product}}">
+    <!-- 商品图片 -->
+    <swiper class="product-images" indicator-dots circular>
+      <swiper-item wx:for="{{product.images}}" wx:key="*this">
+        <image src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+
+    <!-- 商品信息 -->
+    <view class="product-info">
+      <view class="product-header">
+        <text class="product-name">{{product.name}}</text>
+        <view class="product-price-points">
+          <text class="product-price">¥{{product.price}}</text>
+          <text class="product-points">{{product.points}}积分</text>
+        </view>
+      </view>
+
+      <view class="product-description">
+        <text>{{product.description}}</text>
+      </view>
+
+      <!-- 商品特点 -->
+      <view class="product-features">
+        <text class="section-title">商品特点</text>
+        <view class="feature-list">
+          <view class="feature-item" wx:for="{{product.features}}" wx:key="*this">
+            <text class="feature-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 商品标签 -->
+      <view class="product-tags">
+        <text class="tag" wx:for="{{product.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 底部操作栏 -->
+    <view class="bottom-bar">
+      <button class="exchange-btn" bindtap="onExchange">
+        立即兑换
+      </button>
+    </view>
+  </block>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view> 

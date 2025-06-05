@@ -1,0 +1,90 @@
+<!--pages/me/records/records.wxml-->
+<view class="container">
+  <!-- 顶部筛选 -->
+  <view class="filter-section">
+    <view class="filter-tabs">
+      <view 
+        wx:for="{{filterTabs}}" 
+        wx:key="id"
+        class="filter-tab {{currentFilter === item.id ? 'active' : ''}}"
+        bindtap="switchFilter"
+        data-filter="{{item.id}}"
+      >
+        <text class="tab-text">{{item.title}}</text>
+        <view wx:if="{{item.count > 0}}" class="tab-badge">{{item.count}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计概览 -->
+  <view class="stats-overview">
+    <view class="overview-card">
+      <view class="stat-item">
+        <text class="stat-number">{{totalActivities}}</text>
+        <text class="stat-label">总活动数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-number">{{totalPoints}}</text>
+        <text class="stat-label">总获得积分</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-number">{{thisMonthActivities}}</text>
+        <text class="stat-label">本月活动</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 活动记录列表 -->
+  <view class="records-section">
+    <view wx:if="{{filteredRecords.length > 0}}" class="records-list">
+      <view 
+        wx:for="{{filteredRecords}}" 
+        wx:key="id"
+        class="record-item"
+        bindtap="showRecordDetail"
+        data-record="{{item}}"
+      >
+        <view class="record-left">
+          <view class="activity-icon {{item.type}}">
+            <image src="{{item.icon}}" class="icon-image" />
+          </view>
+          <view class="record-content">
+            <text class="activity-title">{{item.title}}</text>
+            <text class="activity-desc">{{item.description}}</text>
+            <text class="submit-time">{{item.submitTime}}</text>
+          </view>
+        </view>
+        
+        <view class="record-right">
+          <view class="status-section">
+            <view class="status-badge {{item.status}}">
+              <text class="status-text">{{item.statusText}}</text>
+            </view>
+            <view wx:if="{{item.status === 'approved' && item.points > 0}}" class="points-info">
+              <text class="points-text">+{{item.points}}积分</text>
+            </view>
+          </view>
+          <image src="/static/icons/chevron-right-gray.png" class="arrow-icon" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{filteredRecords.length === 0}}" class="empty-state">
+      <image src="/static/images/empty-records.png" class="empty-image" />
+      <text class="empty-title">{{emptyStateText}}</text>
+      <text class="empty-desc">快去记录你的低碳生活吧！</text>
+      <button class="goto-submit-btn" bindtap="goToSubmit">记录活动</button>
+    </view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view wx:if="{{hasMore && filteredRecords.length > 0}}" class="load-more">
+    <text class="load-text" bindtap="loadMore">加载更多</text>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-area-bottom"></view>
+</view>

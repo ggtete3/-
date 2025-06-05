@@ -1,0 +1,171 @@
+<!--pages/redemption/redemption.wxml-->
+<view class="container">
+  <!-- 页面头部 -->
+  <view class="header">
+    <view class="header-content">
+      <text class="page-title">兑换记录</text>
+      <text class="page-subtitle">查看您的积分兑换记录</text>
+    </view>
+  </view>
+
+  <!-- 筛选标签 -->
+  <view class="filter-section">
+    <scroll-view class="filter-scroll" scroll-x>
+      <view class="filter-list">
+        <view 
+          wx:for="{{statusFilters}}" 
+          wx:key="value"
+          class="filter-item {{selectedStatus === item.value ? 'active' : ''}}"
+          bindtap="changeStatusFilter"
+          data-status="{{item.value}}"
+        >
+          <text class="filter-icon">{{item.icon}}</text>
+          <text class="filter-name">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading && records.length === 0}}" class="loading-state">
+    <view class="loading-animation">
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+    </view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{records.length === 0 && !loading}}" class="empty-state">
+    <text class="empty-icon">📦</text>
+    <text class="empty-text">暂无兑换记录</text>
+    <text class="empty-subtitle">快去积分商城兑换心仪商品吧</text>
+    <button class="shop-btn" bindtap="goToMall">去逛商城</button>
+  </view>
+
+  <!-- 兑换记录列表 -->
+  <view wx:else class="records-section">
+    <view 
+      wx:for="{{records}}" 
+      wx:key="id"
+      class="record-card"
+      bindtap="showRecordDetail"
+      data-record="{{item}}"
+    >
+      <view class="record-header">
+        <view class="record-info">
+          <text class="record-id">兑换单号：{{item.id}}</text>
+          <text class="record-time">{{item.created_at_formatted}}</text>
+        </view>
+        <view class="record-status {{item.status}}">
+          <text class="status-text">{{item.status_text}}</text>
+        </view>
+      </view>
+
+      <view class="record-content">
+        <image src="{{item.product_image || '/miniprogram/static/images/placeholder/product-placeholder.svg'}}" class="product-image" mode="aspectFill" />
+        
+        <view class="product-info">
+          <text class="product-name">{{item.product_name}}</text>
+          <text class="points-cost">消耗积分：{{item.points_cost}}</text>
+          
+          <view class="verification-section">
+            <view class="verification-code-mini">
+              <text class="code-label">核销码</text>
+              <text class="code-value">{{item.verification_code}}</text>
+              <button class="copy-mini-btn" bindtap="copyCode" data-code="{{item.verification_code}}" catchtap>
+                <text class="copy-icon">📋</text>
+              </button>
+            </view>
+            
+            <view wx:if="{{item.status === 'pending'}}" class="expire-info">
+              <text class="expire-text">{{item.expire_status}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{item.status === 'pending'}}" class="record-actions">
+        <button class="action-btn secondary" bindtap="viewStores" catchtap>查看门店</button>
+        <button class="action-btn primary" bindtap="showVerificationCode" data-record="{{item}}" catchtap>查看详情</button>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore && records.length > 0}}">
+      <button class="load-more-btn" bindtap="loadMoreRecords" loading="{{loading}}">
+        {{loading ? '加载中...' : '加载更多'}}
+      </button>
+    </view>
+
+    <!-- 没有更多 -->
+    <view class="no-more" wx:if="{{!hasMore && records.length > 0}}">
+      <text>— 没有更多记录了 —</text>
+    </view>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-area-bottom"></view>
+</view>
+
+<!-- 核销码详情弹窗 -->
+<view class="modal-overlay {{showDetailModal ? 'show' : ''}}" bindtap="closeDetailModal">
+  <view class="detail-modal" catchtap>
+    <view class="modal-header">
+      <text class="modal-title">核销详情</text>
+      <button class="close-btn" bindtap="closeDetailModal">✕</button>
+    </view>
+    
+    <view class="modal-content">
+      <image src="{{selectedRecord.product_image}}" class="detail-product-image" mode="aspectFill" />
+      <text class="detail-product-name">{{selectedRecord.product_name}}</text>
+      
+      <view class="verification-code-large">
+        <text class="code-label">核销码</text>
+        <text class="code-value">{{selectedRecord.verification_code}}</text>
+        <button class="copy-btn" bindtap="copyVerificationCode">复制核销码</button>
+      </view>
+      
+      <view class="qr-code-section">
+        <text class="qr-label">核销二维码</text>
+        <view class="qr-code-placeholder">
+          <text class="qr-icon">📱</text>
+          <text class="qr-text">请截图保存到相册</text>
+        </view>
+      </view>
+      
+      <view class="detail-info">
+        <view class="info-row">
+          <text class="info-label">兑换时间</text>
+          <text class="info-value">{{selectedRecord.created_at_formatted}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">消耗积分</text>
+          <text class="info-value">{{selectedRecord.points_cost}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">有效期至</text>
+          <text class="info-value">{{selectedRecord.expire_at_formatted}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">状态</text>
+          <text class="info-value {{selectedRecord.status}}">{{selectedRecord.status_text}}</text>
+        </view>
+      </view>
+      
+      <view class="usage-tips">
+        <text class="tips-title">💡 使用说明</text>
+        <text class="tips-item">1. 到任意合作门店出示核销码</text>
+        <text class="tips-item">2. 工作人员扫码后即可领取商品</text>
+        <text class="tips-item">3. 核销码仅限使用一次</text>
+        <text class="tips-item">4. 超过有效期自动失效</text>
+      </view>
+    </view>
+    
+    <view class="modal-actions">
+      <button class="modal-btn secondary" bindtap="viewStores">查看门店</button>
+      <button class="modal-btn primary" bindtap="closeDetailModal">我知道了</button>
+    </view>
+  </view>
+</view>

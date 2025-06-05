@@ -1,0 +1,141 @@
+<!--pages/knowledge/knowledge.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input">
+      <text class="search-icon">🔍</text>
+      <input 
+        placeholder="搜索环保知识..." 
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+      />
+    </view>
+  </view>
+
+  <!-- 知识分类 -->
+  <view class="category-tabs">
+    <scroll-view scroll-x="true" class="tabs-scroll">
+      <view class="tabs-list">
+        <view 
+          wx:for="{{categories}}" 
+          wx:key="id"
+          class="tab-item {{currentCategory === item.id ? 'active' : ''}}"
+          bindtap="switchCategory"
+          data-id="{{item.id}}"
+        >
+          <text class="tab-icon">{{item.icon}}</text>
+          <text class="tab-text">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 每日答题卡片 -->
+  <view class="daily-quiz" bindtap="goToQuiz">
+    <view class="quiz-header">
+      <text class="quiz-title">每日答题</text>
+      <text class="quiz-status">{{quizStatus}}</text>
+    </view>
+    <text class="quiz-desc">答题获积分，学习环保知识</text>
+    <view class="quiz-stats">
+      <text class="quiz-streak">连续答题 {{streakDays}} 天</text>
+      <text class="quiz-points">+{{quizPoints}} 积分</text>
+    </view>
+  </view>
+
+  <!-- 推荐文章 -->
+  <view class="featured-section" wx:if="{{featuredArticles.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">推荐阅读</text>
+    </view>
+    <scroll-view scroll-x="true" class="featured-scroll">
+      <view class="featured-list">
+        <view 
+          wx:for="{{featuredArticles}}" 
+          wx:key="id"
+          class="featured-item"
+          bindtap="goToArticle"
+          data-id="{{item.id}}"
+        >
+          <image src="{{item.cover_image}}" class="featured-image" mode="aspectFill" />
+          <view class="featured-content">
+            <text class="featured-title">{{item.title}}</text>
+            <text class="featured-summary">{{item.summary}}</text>
+            <view class="featured-meta">
+              <text class="read-count">{{item.read_count}} 阅读</text>
+              <text class="publish-date">{{formatDate(item.created_at)}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 知识文章列表 -->
+  <view class="articles-section">
+    <view class="section-header">
+      <text class="section-title">知识文章</text>
+      <view class="sort-options">
+        <text 
+          class="sort-item {{sortType === 'latest' ? 'active' : ''}}"
+          bindtap="changeSortType"
+          data-type="latest"
+        >最新</text>
+        <text 
+          class="sort-item {{sortType === 'popular' ? 'active' : ''}}"
+          bindtap="changeSortType"
+          data-type="popular"
+        >热门</text>
+      </view>
+    </view>
+
+    <view class="articles-list">
+      <view 
+        wx:for="{{articles}}" 
+        wx:key="id"
+        class="article-item"
+        bindtap="goToArticle"
+        data-id="{{item.id}}"
+      >
+        <image src="{{item.cover_image}}" class="article-image" mode="aspectFill" />
+        <view class="article-content">
+          <text class="article-title">{{item.title}}</text>
+          <text class="article-summary">{{item.summary}}</text>
+          <view class="article-meta">
+            <view class="meta-left">
+              <text class="author">{{item.author}}</text>
+              <text class="publish-date">{{formatDate(item.created_at)}}</text>
+            </view>
+            <view class="meta-right">
+              <text class="read-count">{{item.read_count}} 阅读</text>
+              <text class="like-count">❤️ {{item.like_count}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}">
+      <button class="load-more-btn" bindtap="loadMore" loading="{{loading}}">
+        {{loading ? '加载中...' : '加载更多'}}
+      </button>
+    </view>
+
+    <!-- 无更多内容 -->
+    <view class="no-more" wx:if="{{!hasMore && articles.length > 0}}">
+      <text>没有更多内容了</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{articles.length === 0 && !loading}}">
+    <text class="empty-icon">📚</text>
+    <text class="empty-text">暂无相关知识内容</text>
+    <button class="refresh-btn" bindtap="refreshData">刷新重试</button>
+  </view>
+
+  <!-- 底部安全区域 -->
+  <view class="safe-area-bottom"></view>
+</view> 

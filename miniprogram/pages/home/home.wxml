@@ -1,0 +1,116 @@
+<!--pages/home/home.wxml-->
+<view class="container">
+  <!-- 轮播图 -->
+  <swiper 
+    class="banner" 
+    indicator-dots="{{true}}"
+    autoplay="{{true}}"
+    interval="{{3000}}"
+    duration="{{500}}"
+    circular="{{true}}"
+    indicator-color="rgba(255, 255, 255, 0.6)"
+    indicator-active-color="#fff"
+  >
+    <swiper-item wx:for="{{banners}}" wx:key="title" class="banner-item">
+      <image src="{{item.image}}" mode="aspectFill" class="banner-image"/>
+      <view class="banner-text">
+        <text class="title">{{item.title}}</text>
+        <text class="subtitle">{{item.subtitle}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 用户信息卡片 (已移除) -->
+  <!-- 
+  <view class="user-card">
+    <view class="user-info">
+      <text class="nickname">{{userInfo.nickName || '游客'}}</text>
+      <text class="points">{{userPoints}}g 碳积分</text>
+    </view>
+    <view class="today-points">
+      <text class="num">+{{todayPoints}}g</text>
+      <text class="label">今日减碳</text>
+    </view>
+  </view>
+  -->
+
+  <!-- 快捷操作 -->
+  <view class="quick-actions-wrapper">
+    <scroll-view class="quick-actions-scroll-view" scroll-x="true" enable-flex="true" show-scrollbar="false">
+      <view class="quick-actions-list">
+        <view 
+          class="action-item"
+          wx:for="{{quickActions}}"
+          wx:key="type"
+          data-activity="{{item.type}}"
+          bindtap="goToSubmit"
+        >
+          <view class="icon-wrapper {{item.iconBgClass}}">
+            <image src="{{item.iconPath}}" class="action-icon-image" mode="aspectFit"/>
+          </view>
+          <text class="title">{{item.title}}</text>
+          <text class="btn {{item.btnClass}}">{{item.btnText}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 热门兑换 -->
+  <view class="section products-section">
+    <view class="section-header">
+      <text class="title">热门兑换</text>
+      <text class="more" bindtap="goToMall">查看更多</text>
+    </view>
+    <scroll-view 
+      class="products" 
+      scroll-x="{{true}}"
+      enable-flex="{{true}}"
+      enhanced="{{true}}"
+      show-scrollbar="{{false}}"
+    >
+      <view 
+        class="product-item"
+        wx:for="{{featuredProducts}}"
+        wx:key="_id"
+        data-product="{{item}}"
+        bindtap="goToProductDetail"
+      >
+        <image 
+          class="product-image" 
+          src="{{item.image || item.image_url}}" 
+          mode="aspectFill"
+        />
+        <view class="product-info">
+          <text class="name">{{item.name}}</text>
+          <view class="price">
+            <text class="points">{{item.points || item.points_required}}g</text>
+            <text class="original" wx:if="{{item.originalPoints || item.original_points}}">{{item.originalPoints || item.original_points}}g</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 知识文章 -->
+  <view class="section article-section" wx:if="{{knowledgeArticle}}">
+    <view class="section-header">
+      <text class="title">低碳知识</text>
+      <text class="more" bindtap="goToKnowledge">更多文章</text>
+    </view>
+    <view 
+      class="article-card"
+      data-id="{{knowledgeArticle._id}}"
+      bindtap="goToArticle"
+    >
+      <image 
+        class="article-image" 
+        src="{{knowledgeArticle.image}}" 
+        mode="aspectFill"
+      />
+      <view class="article-info">
+        <text class="title">{{knowledgeArticle.title}}</text>
+        <text class="desc">{{knowledgeArticle.description}}</text>
+      </view>
+    </view>
+  </view>
+</view>

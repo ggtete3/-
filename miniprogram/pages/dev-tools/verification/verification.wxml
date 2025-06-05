@@ -1,0 +1,85 @@
+<!--pages/dev-tools/verification/verification.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">商品核销工具</view>
+    <view class="subtitle">用于线下店铺核销用户兑换的商品</view>
+  </view>
+  
+  <view class="verification-section">
+    <view class="input-group">
+      <input 
+        class="verification-input" 
+        placeholder="请输入核销码" 
+        value="{{verificationCode}}"
+        bindinput="inputVerificationCode"
+      />
+      <button class="scan-btn" bindtap="scanCode" disabled="{{scanning}}">
+        <image src="/static/icons/scan.png" class="scan-icon" />
+        扫码
+      </button>
+    </view>
+    
+    <button class="verify-btn" bindtap="verifyCode">验证核销码</button>
+  </view>
+  
+  <view class="result-section" wx:if="{{verificationResult}}">
+    <view class="result-card {{verificationResult.success ? 'success' : 'error'}}">
+      <view class="result-header">
+        <view class="result-icon">
+          <image 
+            src="{{verificationResult.success ? '/static/icons/success.png' : '/static/icons/error.png'}}" 
+            class="result-status-icon"
+          />
+        </view>
+        <view class="result-title">
+          {{verificationResult.success ? '核销成功' : '核销失败'}}
+        </view>
+      </view>
+      
+      <view class="result-content" wx:if="{{verificationResult.success}}">
+        <view class="product-info">
+          <image 
+            src="{{verificationResult.data.product.image || '/static/images/products/eco-bag.jpg'}}" 
+            class="product-image"
+            mode="aspectFill"
+          />
+          <view class="product-details">
+            <view class="product-name">{{verificationResult.data.product.name}}</view>
+            <view class="product-points">{{verificationResult.data.redemption.points}} 积分</view>
+          </view>
+        </view>
+        
+        <view class="verification-info">
+          <view class="info-item">
+            <view class="info-label">订单ID:</view>
+            <view class="info-value">{{verificationResult.data.redemption._id}}</view>
+          </view>
+          <view class="info-item">
+            <view class="info-label">核销时间:</view>
+            <view class="info-value">{{verificationResult.data.redemption.verification_time}}</view>
+          </view>
+          <view class="info-item">
+            <view class="info-label">核销地点:</view>
+            <view class="info-value">{{verificationResult.data.redemption.verification_location}}</view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="error-message" wx:else>
+        {{verificationResult.error}}
+      </view>
+      
+      <button class="reset-btn" bindtap="reset">重新核销</button>
+    </view>
+  </view>
+  
+  <view class="tips-section">
+    <view class="tips-title">操作说明</view>
+    <view class="tips-content">
+      <view class="tip-item">1. 输入核销码或点击扫码按钮扫描用户的核销码</view>
+      <view class="tip-item">2. 点击"验证核销码"按钮进行验证</view>
+      <view class="tip-item">3. 核销成功后，将显示商品信息和核销详情</view>
+      <view class="tip-item">4. 核销失败将显示失败原因</view>
+    </view>
+  </view>
+</view> 

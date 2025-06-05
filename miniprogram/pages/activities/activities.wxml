@@ -1,0 +1,41 @@
+<!--pages/activities/activities.wxml-->
+<view class="container">
+  <!-- 顶部统计卡片 -->
+  <view class="stats-header">
+    <image src="{{useCloudImage ? cloudBackgroundImage : '../../static/images/backgrounds/eco-background.jpg'}}" class="bg-image" mode="aspectFill" />
+    <view class="stats-overlay">
+      <text class="stats-label">我的累计减排量</text>
+      <view class="stats-value-container">
+        <text class="stats-value">{{totalReduction}}</text>
+        <text class="stats-unit">g</text>
+      </view>
+      <text class="stats-today">今日已获得 {{todayReduction}}g 减排量</text>
+    </view>
+  </view>
+
+  <!-- 低碳活动列表 -->
+  <view class="activities-list">
+    <view wx:for="{{activities}}" wx:key="type" class="activity-card" bindtap="goToSubmit" data-activity="{{item.type}}">
+      <view class="activity-icon {{item.iconBg}}">
+        <!-- 使用文本图标替代SVG -->
+        <text class="activity-icon-text">
+          <block wx:if="{{item.type === 'bus'}}">🚌</block>
+          <block wx:elif="{{item.type === 'cycling'}}">🚲</block>
+          <block wx:elif="{{item.type === 'electric_car'}}">🚗</block>
+          <block wx:elif="{{item.type === 'electricity'}}">💡</block>
+          <block wx:elif="{{item.type === 'walking'}}">🚶</block>
+          <block wx:elif="{{item.type === 'recycle'}}">♻️</block>
+          <block wx:elif="{{item.type === 'other'}}">🍃</block>
+        </text>
+      </view>
+      <view class="activity-content">
+        <text class="activity-title">{{item.title}}</text>
+        <text class="activity-reward">每{{item.unit}}可获得 <text class="reward-value">{{item.points}}g</text></text>
+        <text class="activity-desc">{{item.description}}</text>
+      </view>
+      <view class="activity-action {{item.btnClass}}">
+        去记录
+      </view>
+    </view>
+  </view>
+</view>

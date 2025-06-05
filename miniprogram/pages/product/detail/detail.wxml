@@ -1,0 +1,104 @@
+<!--pages/product/detail/detail.wxml-->
+<view class="container">
+  <!-- 商品图片 -->
+  <swiper 
+    class="product-images" 
+    indicator-dots="{{true}}"
+    autoplay="{{true}}"
+    interval="{{3000}}"
+    duration="{{500}}"
+    circular="{{true}}"
+    indicator-color="rgba(255, 255, 255, 0.6)"
+    indicator-active-color="#fff"
+  >
+    <swiper-item wx:for="{{product.images}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill" class="product-image"/>
+    </swiper-item>
+  </swiper>
+
+  <!-- 商品信息 -->
+  <view class="product-info">
+    <view class="basic-info">
+      <text class="name">{{product.name}}</text>
+      <view class="price-info">
+        <text class="points">{{product.points}}g</text>
+        <text class="original" wx:if="{{product.originalPoints}}">{{product.originalPoints}}g</text>
+      </view>
+    </view>
+    <view class="stock-info">
+      <text class="label">库存</text>
+      <text class="value">{{product.stock}} 件</text>
+    </view>
+  </view>
+
+  <!-- 商品详情 -->
+  <view class="detail-section">
+    <view class="section-header">
+      <text class="title">商品详情</text>
+    </view>
+    <view class="detail-content">
+      <text class="description">{{product.description}}</text>
+      <view class="detail-images">
+        <image 
+          wx:for="{{product.detailImages}}" 
+          wx:key="*this"
+          src="{{item}}"
+          mode="widthFix"
+          class="detail-image"
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 兑换规则 -->
+  <view class="rules-section">
+    <view class="section-header">
+      <text class="title">兑换规则</text>
+    </view>
+    <view class="rules-content">
+      <view class="rule-item" wx:for="{{exchangeRules}}" wx:key="title">
+        <text class="rule-title">{{item.title}}</text>
+        <text class="rule-desc">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <view class="user-points">
+      <text class="label">我的碳积分</text>
+      <text class="points">{{userPoints}}g</text>
+    </view>
+    <button 
+      class="exchange-btn {{canExchange ? '' : 'disabled'}}"
+      bindtap="exchangeProduct"
+      disabled="{{!canExchange}}"
+    >
+      {{canExchange ? '立即兑换' : '积分不足'}}
+    </button>
+  </view>
+</view>
+
+<!-- 兑换确认弹窗 -->
+<view class="exchange-modal" wx:if="{{showExchangeModal}}">
+  <view class="modal-mask" bindtap="closeExchangeModal"></view>
+  <view class="modal-content">
+    <view class="modal-header">
+      <text class="modal-title">确认兑换</text>
+    </view>
+    <view class="modal-body">
+      <view class="exchange-info">
+        <image src="{{product.image_url}}" class="exchange-image" />
+        <view class="exchange-details">
+          <text class="exchange-name">{{product.name}}</text>
+          <text class="exchange-points">消耗 {{product.points_required}} 积分</text>
+          <text class="remaining-points">兑换后剩余：{{userPoints - product.points_required}} 积分</text>
+        </view>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <button class="modal-btn cancel" bindtap="closeExchangeModal">取消</button>
+      <button class="modal-btn confirm" bindtap="confirmExchange" loading="{{exchanging}}">确认兑换</button>
+    </view>
+  </view>
+</view>

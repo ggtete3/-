@@ -1,0 +1,98 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 顶部轮播图 -->
+  <view class="hero-section">
+    <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="3000" duration="500" class="hero-swiper">
+      <swiper-item wx:for="{{banners}}" wx:key="index">
+        <image 
+          src="{{item.image}}" 
+          class="banner-image"
+          mode="aspectFill"
+        />
+        <view class="banner-overlay">
+          <text class="banner-title">{{item.title}}</text>
+          <text class="banner-subtitle">{{item.subtitle}}</text>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- 我的积分卡片 -->
+  <view class="points-card">
+    <view class="points-info">
+      <text class="points-label">我的积分</text>
+      <text class="points-value">{{userPoints}}</text>
+      <text class="points-unit">g</text>
+    </view>
+    <view class="today-points">
+      <text class="today-label">今日获得</text>
+      <text class="today-value">+{{todayPoints}}g</text>
+    </view>
+  </view>
+
+  <!-- 低碳生活快捷入口 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">低碳生活</text>
+      <text class="section-subtitle">进行低碳行为，享受低碳生活</text>
+    </view>
+    <scroll-view scroll-x="true" class="quick-actions">
+      <view wx:for="{{quickActions}}" wx:key="index" class="action-item" bindtap="goToSubmit" data-activity="{{item.type}}">
+        <view class="action-icon {{item.iconClass}}">
+          <text class="iconfont {{item.icon}}"></text>
+        </view>
+        <text class="action-title">{{item.title}}</text>
+        <view class="action-btn {{item.btnClass}}">
+          {{item.btnText}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 低碳知识 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">低碳知识</text>
+      <text class="section-link" bindtap="goToKnowledge">更多 ></text>
+    </view>
+    <view class="knowledge-tips">
+      <view class="tips-icon">
+        <text class="iconfont icon-horn"></text>
+      </view>
+      <text class="tips-text">进行每日答题，了解更多低碳知识~</text>
+      <text class="tips-action" bindtap="goToDaily">去答题 ></text>
+    </view>
+    <view class="knowledge-article" bindtap="goToArticle">
+      <image src="{{knowledgeArticle.image}}" class="article-image" mode="aspectFill" />
+      <view class="article-content">
+        <text class="article-title">{{knowledgeArticle.title}}</text>
+        <text class="article-desc">{{knowledgeArticle.description}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 低碳商城 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">低碳商城</text>
+      <text class="section-link" bindtap="switchTab" data-index="2">更多 ></text>
+    </view>
+    <scroll-view scroll-x="true" class="products-scroll">
+      <view wx:for="{{featuredProducts}}" wx:key="id" class="product-item" bindtap="goToProductDetail" data-product="{{item}}">
+        <image src="{{item.image}}" class="product-image" mode="aspectFill" />
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-desc">{{item.description}}</text>
+          <view class="product-footer">
+            <view class="product-price">
+              <text class="price-icon">🍃</text>
+              <text class="price-value">{{item.points}}g</text>
+              <text class="price-original">{{item.originalPoints}}g</text>
+            </view>
+            <view class="exchange-btn">兑换</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

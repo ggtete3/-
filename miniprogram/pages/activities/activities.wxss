@@ -1,0 +1,249 @@
+/* pages/activities/activities.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+}
+
+/* 顶部统计卡片 */
+.stats-header {
+  position: relative;
+  height: 400rpx;
+  border-radius: 24rpx;
+  margin-bottom: 40rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.15);
+}
+
+.bg-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+.stats-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 64rpx;
+}
+
+.stats-label {
+  color: white;
+  font-size: 28rpx;
+  margin-bottom: 16rpx;
+  letter-spacing: 4rpx;
+  text-transform: uppercase;
+}
+
+.stats-value-container {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 16rpx;
+}
+
+.stats-value {
+  color: white;
+  font-size: 120rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.stats-unit {
+  color: white;
+  font-size: 48rpx;
+  font-weight: 300;
+  margin-left: 8rpx;
+}
+
+.stats-today {
+  color: white;
+  font-size: 24rpx;
+  opacity: 0.9;
+}
+
+/* 活动列表 */
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.activity-card {
+  background-color: white;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.activity-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.12);
+}
+
+.activity-icon {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 32rpx;
+  flex-shrink: 0;
+}
+
+/* 图标背景颜色 */
+.activity-icon.green {
+  background-color: #dcfce7;
+}
+
+.activity-icon.blue {
+  background-color: #dbeafe;
+}
+
+.activity-icon.indigo {
+  background-color: #e0e7ff;
+}
+
+.activity-icon.amber {
+  background-color: #fef3c7;
+}
+
+.activity-icon.emerald {
+  background-color: #d1fae5;
+}
+
+.activity-icon.purple {
+  background-color: #ede9fe;
+}
+
+.activity-icon.rose {
+  background-color: #fce7f3;
+}
+
+/* SVG图标样式 */
+.activity-icon-image {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+/* 文本图标样式 */
+.activity-icon-text {
+  font-size: 64rpx;
+  line-height: 1;
+}
+
+/* 不同主题的图标颜色过滤器 */
+.activity-icon.green .activity-icon-image {
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+.activity-icon.blue .activity-icon-image {
+  filter: invert(27%) sepia(95%) saturate(3223%) hue-rotate(230deg) brightness(102%) contrast(97%);
+}
+
+.activity-icon.indigo .activity-icon-image {
+  filter: invert(32%) sepia(77%) saturate(3941%) hue-rotate(230deg) brightness(91%) contrast(96%);
+}
+
+.activity-icon.amber .activity-icon-image {
+  filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
+}
+
+.activity-icon.emerald .activity-icon-image {
+  filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(75deg) brightness(107%) contrast(86%);
+}
+
+.activity-icon.purple .activity-icon-image {
+  filter: invert(19%) sepia(94%) saturate(7151%) hue-rotate(274deg) brightness(91%) contrast(118%);
+}
+
+.activity-icon.rose .activity-icon-image {
+  filter: invert(8%) sepia(100%) saturate(4462%) hue-rotate(325deg) brightness(97%) contrast(106%);
+}
+
+.activity-content {
+  flex: 1;
+  margin-right: 24rpx;
+}
+
+.activity-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1f2937;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.activity-reward {
+  font-size: 28rpx;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.reward-value {
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.activity-desc {
+  font-size: 24rpx;
+  color: #9ca3af;
+  line-height: 1.4;
+}
+
+.activity-action {
+  background-color: #4ade80;
+  color: white;
+  font-size: 28rpx;
+  font-weight: 500;
+  padding: 16rpx 32rpx;
+  border-radius: 24rpx;
+  min-width: 120rpx;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.activity-action.blue {
+  background-color: #3b82f6;
+}
+
+.activity-action.indigo {
+  background-color: #6366f1;
+}
+
+.activity-action.amber {
+  background-color: #f59e0b;
+}
+
+.activity-action.emerald {
+  background-color: #10b981;
+}
+
+.activity-action.purple {
+  background-color: #8b5cf6;
+}
+
+.activity-action.rose {
+  background-color: #f43f5e;
+}
+
+.activity-action.disabled {
+  background-color: #d1d5db;
+  color: #9ca3af;
+}
